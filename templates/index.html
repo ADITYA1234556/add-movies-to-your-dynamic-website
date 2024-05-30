@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}My Top 10 Movies{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1 class="heading">My Top 10 Movies</h1>
+  <p class="description">These are my all-time favourite movies.</p>
+
+  {% for x in data: %}
+  <div class="card" >
+    <div class="front" style="background-image: url({{x['img_url']}});">
+        <p class="large">{{x["ranking"]}}</p>
+    </div>
+    <div class="back">
+      <div>
+    <div class="title">{{x["title"]}} <span class="release_date">{{x["year"]}}</span></div>
+        <div class="rating">
+            <label>{{x["rating"]}}</label>
+          <i class="fas fa-star star"></i>
+        </div>
+          <p class="review">{{x["review"]}}</p>
+        <p class="overview">
+            {{x["description"]}}
+        </p>
+
+        <a href="{{ url_for('edit', id=x['id']) }}" class="button">Update</a>
+        <a href="{{ url_for('delete', id=x['id']) }}" class="button delete-button">Delete</a>
+<!--          x['id'] is the value that gets passed over to request.arge.get['id']-->
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+<div class="container text-center add">
+<a href="{{url_for('add')}}" class="button">Add Movie</a>
+</div>
+
+{% endblock %}
+
+<!--{{ url_for('delete', id=x['id']) }}-->
+<!--{{ url_for('edit', id=x['id']) }}-->
+<!--{{url_for('add')}}-->
